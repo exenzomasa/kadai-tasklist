@@ -1,5 +1,43 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to the Tasks</h1>
+<% if logged_in? %>
+
+  <h1>Task一覧</h1>
+  <% if @tasks.any? %>
+    <table class="table table-striped">
+      <thread>
+        <tr>
+          <th>id</th>
+          <th>Task</th>
+          <th>Status</th>
+        </tr>
+      </thread>
+      <tbody>
+        <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.id, task %></td>
+          <td><%= task.content %></td>
+          <td><%= task.status %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <div>
+  <%= paginate @tasks %>
   </div>
-</div>
+  <% end %>
+  <a class="btn btn-primary" href="/tasks/new">新規Taskの作成</a>
+
+
+
+<% else %>
+
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Welcome to the Tasks</h1>
+        <div class="horizontal">
+          <%= link_to 'Sign up now', signup_path, class:  'btn btn-lg btn-primary' %><br><br>
+          <%= link_to 'Log in now', login_path, class: 'btn btn-lg btn-success' %>
+        </div>
+    </div>
+  </div>
+
+<% end %>
